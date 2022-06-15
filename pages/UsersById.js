@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Card, Divider, Text } from '@rneui/base';
 
 const UsersById = ({ navigation, route }) => {
 
@@ -41,14 +42,14 @@ const UsersById = ({ navigation, route }) => {
 
             
             <View>
-                <View style={styles.container}>
-                    <Text h1 style={styles.textTitle}>DETAILS</Text>
-
-
-
-                    <View style={{ paddingVertical:'5%' }}>
-                    {loading ? <ActivityIndicator color={'white'}/> : (
+               
+                    <Card containerStyle={{borderRadius:10, backgroundColor: "#00cca3"}}>
+                        <Card.Title style={styles.textTitle}>DETAILS</Card.Title>
                         <View>
+                        {loading ? <ActivityIndicator color={'white'}/> : (
+                        <View>
+                            <Text style={styles.textTitle}>Personal Detail</Text>
+
                             <View style={styles.viewStyle}>
                                 <Text style={styles.textStyleLeft}>Name Surname: </Text>
                                 <Text style={styles.textStyle}>{usersDetail.name}</Text>
@@ -70,7 +71,7 @@ const UsersById = ({ navigation, route }) => {
                                 <Text style={styles.textStyle}>{usersDetail.website}</Text>
                             </View>
 
-                            <Text h1 style={styles.textTitle}>Address</Text>
+                            <Text style={styles.textTitle}>Address</Text>
 
                             <View style={styles.viewStyle}>
                                 <Text style={styles.textStyleLeft}>Street: </Text>
@@ -97,7 +98,7 @@ const UsersById = ({ navigation, route }) => {
                                 <Text style={styles.textStyle}>{usersDetail.address.geo.lng}</Text>
                             </View>
 
-                            <Text h1 style={styles.textTitle}>Company Detail</Text>
+                            <Text style={styles.textTitle}>Company Detail</Text>
 
                             <View style={styles.viewStyle}>
                                 <Text style={styles.textStyleLeft}>Name: </Text>
@@ -117,12 +118,9 @@ const UsersById = ({ navigation, route }) => {
                       
                         </View>
                          )}
-                    </View>
-                   
-
-                </View>
-
-                        
+                        </View>
+                    </Card>
+                    
             </View>
             </ScrollView>
         </SafeAreaView>
@@ -134,26 +132,17 @@ export default UsersById
 
 const styles = StyleSheet.create({
     container: {
-        height: "auto",
-        width: "auto",
         borderColor: "#ddd",
         backgroundColor: "#00cca3",
         borderWidth: 0.5,
         borderRadius: 10,
-        marginTop: '5%',
-        marginHorizontal: '5%',
-        overflow: "hidden"
     },
 
     textTitle: {
         fontSize: 20, 
         fontWeight: "bold", 
-        paddingTop: '5%', 
-        paddingLeft: '3%', 
         color: "white"
     },
-
-    
 
     viewStyle: {
         flexDirection: "row",
@@ -180,7 +169,6 @@ const styles = StyleSheet.create({
 
     back: {
         padding: 10,
-        marginVertical: 10,
     }
 
 })

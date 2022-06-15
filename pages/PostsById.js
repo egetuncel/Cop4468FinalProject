@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Card, Text } from "@rneui/themed";
 
 const PostsById = ({ navigation, route }) => {
 
@@ -35,24 +36,28 @@ const PostsById = ({ navigation, route }) => {
                 </View>
             </TouchableOpacity>
             <View>
+                <Card containerStyle={{borderRadius:10, backgroundColor: "#00cca3",}}>
+                    <View>
+                        {loading ? <ActivityIndicator color={'white'} /> : (
+                            <View>
 
-                {/* 1. tittle */}
-                <View style={styles.container}>
-                    {loading ? <ActivityIndicator color={'white'} /> : (
-                        <View>
-                            <View style={styles.viewStyle}>
+                                <Card.Title style={styles.textTitle}>
+                                    {postsDetail.title.toUpperCase()}
+                                </Card.Title>
 
-                                <Text style={styles.textTitle}>{postsDetail.title.toUpperCase()}</Text>
+
+
+                                <View style={styles.viewStyle}>
+
+                                    <Text style={styles.textStyle}>{postsDetail.body}</Text>
+                                    
+                                </View>
 
                             </View>
-                            <View style={styles.viewStyle}>
+                        )}
+                    </View>
+                </Card>
 
-                                <Text style={styles.textStyle}>{postsDetail.body}</Text>
-                            </View>
-
-                        </View>
-                    )}
-                </View>
 
 
             </View>
@@ -65,45 +70,26 @@ export default PostsById
 
 const styles = StyleSheet.create({
     container: {
-        height: "auto",
-        width: "auto",
         borderColor: "#ddd",
         backgroundColor: "#00cca3",
         borderWidth: 0.5,
         borderRadius: 10,
-        marginVertical: '5%',
-        marginHorizontal: '5%',
-        overflow: "hidden"
     },
 
     textTitle: {
         fontSize: 18,
         fontWeight: "bold",
-        paddingTop: '5%',
-        paddingHorizontal: '3%',
         color: "white"
     },
 
-
-
-    viewStyle: {
-        flexDirection: "row",
-        paddingLeft: 10,
-    },
-
     textStyle: {
-        flex: 1,
         fontSize: 16,
         fontWeight: "400",
-        paddingVertical: '3%',
         color: "white",
-        flexWrap: 'wrap'
-
     },
 
     back: {
         padding: 10,
-        marginVertical: 10,
     }
 
 })

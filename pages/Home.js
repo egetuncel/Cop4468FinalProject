@@ -6,6 +6,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Users from '../pages/Users';
 import Posts from '../pages/Posts';
+import Albums from '../pages/Albums';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Home = ({ navigation }) => {
@@ -35,6 +36,7 @@ const Home = ({ navigation }) => {
     >
   <Tab.Screen name="Users" options={{ headerShown: false, headerTitle: 'Users' }} component={Users} />
   <Tab.Screen name="Posts" options={{ headerShown: false, headerTitle: 'Posts' }} component={Posts} />
+  <Tab.Screen name="Albums" options={{ headerShown: false, headerTitle: 'Albums' }} component={Albums} />
 </Tab.Navigator>
 
 

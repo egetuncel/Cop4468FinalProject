@@ -7,6 +7,8 @@ import Users from '../pages/Users';
 import Posts from '../pages/Posts';
 import UsersById from '../pages/UsersById';
 import PostsById from '../pages/PostsById';
+import Albums from '../pages/Albums';
+import AlbumsById from '../pages/AlbumsById';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,8 @@ const Route = () => {
         <Stack.Screen name='UsersById' options={{headerShown:false}} component={UsersById} />
         <Stack.Screen name='Posts' options={{headerShown:false}} component={Posts} />
         <Stack.Screen name='PostsById' options={{headerShown:false}} component={PostsById} />
+        <Stack.Screen name='Albums' options={{headerShown:false}} component={Albums} />
+        <Stack.Screen name='AlbumsById' options={{headerShown:false}} component={AlbumsById} />
         </Stack.Navigator>
     </NavigationContainer>
   )

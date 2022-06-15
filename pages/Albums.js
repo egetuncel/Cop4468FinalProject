@@ -1,32 +1,51 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, FlatList } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { Card } from "@rneui/themed";
+import React, { useState, useEffect, Component } from 'react';
+import {
 
-const Posts = ({ navigation }) => {
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Button,
+    useColorScheme,
+    TouchableOpacity,
+    View,
+    FlatList,
+    ActivityIndicator,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Card, Text, Divider } from "@rneui/themed";
+import axios from 'axios';
 
-    const [postsData, setPostsData] = useState([]);
+const Albums = ({ navigation }) => {
+
+    const [albumsData, setAlbumsData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const api = `https://jsonplaceholder.typicode.com/posts`;
-    const limit = `?_limit=20`;
 
-    const fetchPosts = async () => {
-        const resp = await fetch(api + limit);
-        const postsData = await resp.json();
-        setPostsData(postsData);
-        setLoading(false);
+    const api = "https://jsonplaceholder.typicode.com/albums";
 
-    };
+    const fetchAlbums = async () => {
+       
+        try {
+            const response = await axios.get(api);
+          
+            setAlbumsData(response.data);
+            setLoading(false);
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+
+    }
 
     useEffect(() => {
-        fetchPosts();
-    }, []);
+        fetchAlbums();
+    });
 
-    const postsInfo = ({ item }) => {
+    const albumsInfo = ({ item }) => {
         return (
             <View>
-                <TouchableOpacity onPress={() => navigation.navigate('PostsById', { postsId: item.id })}>
+                <TouchableOpacity onPress={() => navigation.navigate('AlbumsById', { albumId: item.id })}>
                     <Card containerStyle={styles.view}>
                     
                     
@@ -49,28 +68,27 @@ const Posts = ({ navigation }) => {
 
 
                 <View style={styles.container}>
-                    <Card containerStyle={{borderRadius:10}}>
-                    <Card.Title>POSTS</Card.Title>
-                    <Card.Divider />
-                    {loading ? <ActivityIndicator color={'white'} /> : (
+                    <Card containerStyle={{ borderRadius: 10 }}>
+                        <Card.Title>ALBUMS</Card.Title>
+                        <Card.Divider />
+                        {loading ? <ActivityIndicator color={'white'} /> : (
                         <FlatList
-                            data={postsData}
+                            data={albumsData}
                             keyExtractor={({ id }, index) => id}
-                            renderItem={postsInfo}
+                            renderItem={albumsInfo}
 
                         />
                     )}
                     </Card>
-                    
-
                 </View>
+
             </ScrollView>
+
         </SafeAreaView>
+
 
     )
 }
-
-export default Posts
 
 const styles = StyleSheet.create({
     container: {
@@ -99,8 +117,9 @@ const styles = StyleSheet.create({
     view2: {
         flexDirection: "row",
         position: 'relative',
-        alignItems:'center'
+        alignItems: 'center'
     },
 
-    
 })
+
+export default Albums

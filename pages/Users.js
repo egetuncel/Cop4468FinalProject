@@ -4,7 +4,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
+
   Button,
   useColorScheme,
   TouchableOpacity,
@@ -13,7 +13,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Card, Text, Divider } from "@rneui/themed";
 
 const Users = ({ navigation }) => {
 
@@ -28,19 +29,22 @@ const Users = ({ navigation }) => {
     const usersData = await resp.json();
     setUsersData(usersData);
     setLoading(false);
+    console.log(usersData)
   };
 
   const usersInfo = ({ item }) => {
     return (
-      <View style={styles.view}>
+      <View>
         <TouchableOpacity onPress={() => navigation.navigate('UsersById', { userId: item.id })}>
-          <View style={styles.view2}>
-            <Text style={styles.text}>{item.name.toUpperCase()}</Text>
-            <Icon name="arrow-forward-outline" style={{color:'white'}} size={22}></Icon>
-          </View>
+          <Card containerStyle={styles.view}>
+            <View style={styles.view2}>
+              <Text style={styles.text}>{item.name.toUpperCase()}</Text>
+              <Icon name="arrow-forward-outline" style={{ color: 'white' }} size={22}></Icon>
+            </View>
+          </Card>
+          
 
-        </TouchableOpacity>
-
+        </TouchableOpacity> 
       </View>
     )
   }
@@ -52,19 +56,22 @@ const Users = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        
+
 
         <View style={styles.container}>
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Card.Title>USERS</Card.Title>
+            <Card.Divider />
+            {loading ? <ActivityIndicator color={'white'} /> : (
+              <FlatList
+                data={usersData}
+                keyExtractor={({ id }, index) => id}
+                renderItem={usersInfo}
 
-          {loading ? <ActivityIndicator color={'white'} /> : (
-            <FlatList
-              data={usersData}
-              keyExtractor={({ id }, index) => id}
-              renderItem={usersInfo}
-
-            />
-          )}
-
+              />
+            
+            )}
+          </Card>
         </View>
 
       </ScrollView>
@@ -78,7 +85,6 @@ const Users = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: '5%',
-    marginHorizontal: '5%',
   },
 
   text: {
@@ -87,32 +93,24 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "white",
     fontWeight: 'bold',
-    
     flexWrap: 'wrap'
   },
 
-  
-
   view: {
-    height: "auto",
-    width: "auto",
     borderColor: "#ddd",
     backgroundColor: "#00cca3",
     borderWidth: 0.5,
     borderRadius: 10,
     marginTop: '5%',
+    marginHorizontal: '5%',
+    overflow: "hidden"
   },
 
   view2: {
-    padding: 10,
-    alignItems: 'center',
     flexDirection: "row",
+    position: 'relative',
+    alignItems: 'center'
   },
-
-  back: {
-    padding: 10,
-    marginVertical: 10,
-  }
 
 })
 
