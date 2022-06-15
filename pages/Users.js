@@ -15,6 +15,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Card, Text, Divider } from "@rneui/themed";
+import axios from 'axios';
 
 const Users = ({ navigation }) => {
 

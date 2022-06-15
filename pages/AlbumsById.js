@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Card, Text, Image } from "@rneui/themed";
 import axios from 'axios';
+import Thumbnail from 'react-native-thumbnail-video';
 
 const AlbumsById = ({ navigation, route }) => {
 
@@ -21,14 +22,14 @@ const AlbumsById = ({ navigation, route }) => {
             console.log(response.data[0].albumId, "blabla")
             let clickedAlbums = [];
             let i = 0;
-                response.data.forEach(element => {
-                    if (response.data[i].albumId == albumId){
-                        clickedAlbums.push(element.title)
-                    }
+            response.data.forEach(element => {
+                if (response.data[i].albumId == albumId) {
+                    clickedAlbums.push(element)
+                }
                 i = i + 1;
-                });
-                setAlbumsDetail(clickedAlbums);
-                
+            });
+            setAlbumsDetail(clickedAlbums);
+            console.log(clickedAlbums)
             setLoading(false);
         }
         catch (e) {
@@ -43,16 +44,17 @@ const AlbumsById = ({ navigation, route }) => {
     const photosInfo = ({ item }) => {
         return (
             <View>
-               
-                    <Card containerStyle={styles.view}>
-                    
-                    
-                    <View style={styles.view2}>
-                    <Image source={{uri: 'https://via.placeholder.com/600/92c952'}} />
-                        
-                    </View>
-                    </Card>
-                   
+
+
+
+                <View style={styles.view2}>
+                    <Image containerStyle={styles.item}
+                        source={{ uri: item.thumbnailUrl }}></Image>
+
+
+                </View>
+
+
 
             </View>
         )
@@ -66,27 +68,28 @@ const AlbumsById = ({ navigation, route }) => {
                     <Icon name="chevron-back-outline" size={35}></Icon>
                 </View>
             </TouchableOpacity>
-            <View>
-                <Card containerStyle={{ borderRadius: 10, backgroundColor: "#00cca3", }}>
+            <View style={styles.container}>
+                <Card containerStyle={{ borderRadius: 10, backgroundColor: "#00cca3" }}>
                     <View>
                         {loading ? <ActivityIndicator color={'white'} /> : (
                             <View>
 
                                 <Card.Title style={styles.textTitle}>
-                                 
+
                                 </Card.Title>
 
-                                {loading ? <ActivityIndicator color={'white'} /> : (
-                        <FlatList
-                            data={albumsDetail}
-                            keyExtractor={({ id }, index) => id}
-                            renderItem={photosInfo}
 
-                        />
-                    )}
+                                <FlatList
+                                    numColumns={4}
+                                    data={albumsDetail}
+                                    keyExtractor={({ id }, index) => id}
+                                    renderItem={photosInfo}
 
-                               
+                                />
+
                             </View>
+
+
                         )}
                     </View>
                 </Card>
@@ -103,26 +106,39 @@ export default AlbumsById
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: '5%',
+
+    },
+
+    text: {
+        flex: 1,
+        fontSize: 16,
+        fontWeight: "400",
+        color: "white",
+        fontWeight: 'bold',
+        flexWrap: 'wrap'
+    },
+
+    view: {
         borderColor: "#ddd",
         backgroundColor: "#00cca3",
         borderWidth: 0.5,
         borderRadius: 10,
     },
 
-    textTitle: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "white"
-    },
+    view2: {
 
-    textStyle: {
-        fontSize: 16,
-        fontWeight: "400",
-        color: "white",
+        flex: 1,
+        alignItems: 'stretch',
+        justifyContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    
     },
-
-    back: {
-        padding: 10,
-    }
+    item: {
+        width: 50,
+        height: 50,
+        
+    },
 
 })

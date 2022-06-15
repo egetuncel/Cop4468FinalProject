@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Card } from "@rneui/themed";
+import axios from 'axios';
 
 const Posts = ({ navigation }) => {
 
