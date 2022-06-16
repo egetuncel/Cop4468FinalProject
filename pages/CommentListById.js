@@ -47,29 +47,29 @@ const CommentListById = ({ navigation, route }) => {
 
     const commentListInfo = ({ item }) => {
         return (
-           
-                <Card containerStyle={styles.view}>
+
+            <Card containerStyle={styles.view}>
 
 
-                    <View style={styles.view2}>
-                        <Text style={styles.text}>{item.name.toUpperCase()}</Text>
-                    </View>
-                </Card>
+                <View style={styles.view2}>
+                    <Text style={styles.text}>{item.name.toUpperCase()}</Text>
+                </View>
+            </Card>
 
         )
     }
 
     return (
         <SafeAreaView>
+
+
+            <TouchableOpacity onPress={ClosePage}>
+                <View style={styles.back}>
+                    <Icon name="chevron-back-outline" size={35}></Icon>
+                </View>
+            </TouchableOpacity>
+
             <ScrollView>
-
-                <TouchableOpacity onPress={ClosePage}>
-                    <View style={styles.back}>
-                        <Icon name="chevron-back-outline" size={35}></Icon>
-                    </View>
-                </TouchableOpacity>
-
-
                 <View style={styles.container}>
                     <Card containerStyle={{ borderRadius: 10 }}>
                         <Card.Title>Comment</Card.Title>

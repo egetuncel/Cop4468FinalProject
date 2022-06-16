@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Card, Divider, Text } from '@rneui/base';
+import axios from 'axios';
 
 const UsersById = ({ navigation, route }) => {
 
@@ -17,12 +18,16 @@ const UsersById = ({ navigation, route }) => {
 
     const fetchUsersDetail = async () => {
 
+        try {
+            const response = await axios.get(api);
 
-        const resp = await fetch(api);
-        const usersDetail = await resp.json();
-        setUsersDetail(usersDetail);
-        setLoading(false);
-        console.log(usersDetail);
+            setUsersDetail(response.data);
+            setLoading(false);
+        }
+        catch (e) {
+            console.log(e);
+        }
+
     };
 
     useEffect(() => {
@@ -32,96 +37,96 @@ const UsersById = ({ navigation, route }) => {
 
     return (
         <SafeAreaView>
-             <ScrollView>
+
             <TouchableOpacity onPress={ClosePage}>
                 <View style={styles.back}>
                     <Icon name="chevron-back-outline" size={35}></Icon>
                 </View>
             </TouchableOpacity>
-           
 
-            
-            <View>
-               
-                    <Card containerStyle={{borderRadius:10, backgroundColor: "#00cca3"}}>
+
+            <ScrollView>
+                <View>
+
+                    <Card containerStyle={{ borderRadius: 10, backgroundColor: "#00cca3" }}>
                         <Card.Title style={styles.textTitle}>DETAILS</Card.Title>
                         <View>
-                        {loading ? <ActivityIndicator color={'white'}/> : (
-                        <View>
-                            <Text style={styles.textTitle}>Personal Detail</Text>
+                            {loading ? <ActivityIndicator color={'white'} /> : (
+                                <View>
+                                    <Text style={styles.textTitle}>Personal Detail</Text>
 
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Name Surname: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.name}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Username: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.username}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Email: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.email}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Phone: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.phone}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Website: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.website}</Text>
-                            </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Name Surname: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.name}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Username: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.username}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Email: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.email}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Phone: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.phone}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Website: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.website}</Text>
+                                    </View>
 
-                            <Text style={styles.textTitle}>Address</Text>
+                                    <Text style={styles.textTitle}>Address</Text>
 
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Street: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.address.street}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Suite: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.address.suite}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>City: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.address.city}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Zipcode: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.address.zipcode}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Lat: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.address.geo.lat}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Lng: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.address.geo.lng}</Text>
-                            </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Street: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.address.street}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Suite: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.address.suite}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>City: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.address.city}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Zipcode: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.address.zipcode}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Lat: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.address.geo.lat}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Lng: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.address.geo.lng}</Text>
+                                    </View>
 
-                            <Text style={styles.textTitle}>Company Detail</Text>
+                                    <Text style={styles.textTitle}>Company Detail</Text>
 
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Name: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.company.name}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>Catch Phrase: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.company.catchPhrase}</Text>
-                            </View>
-                            <View style={styles.viewStyle}>
-                                <Text style={styles.textStyleLeft}>BS: </Text>
-                                <Text style={styles.textStyle}>{usersDetail.company.bs}</Text>
-                            </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Name: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.company.name}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>Catch Phrase: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.company.catchPhrase}</Text>
+                                    </View>
+                                    <View style={styles.viewStyle}>
+                                        <Text style={styles.textStyleLeft}>BS: </Text>
+                                        <Text style={styles.textStyle}>{usersDetail.company.bs}</Text>
+                                    </View>
 
 
-                           
-                      
-                        </View>
-                         )}
+
+
+                                </View>
+                            )}
                         </View>
                     </Card>
-                    
-            </View>
+
+                </View>
             </ScrollView>
         </SafeAreaView>
 
@@ -139,8 +144,8 @@ const styles = StyleSheet.create({
     },
 
     textTitle: {
-        fontSize: 20, 
-        fontWeight: "bold", 
+        fontSize: 20,
+        fontWeight: "bold",
         color: "white"
     },
 
@@ -164,7 +169,7 @@ const styles = StyleSheet.create({
         paddingVertical: '2%',
         color: "white",
         flexWrap: 'wrap'
-        
+
     },
 
     back: {

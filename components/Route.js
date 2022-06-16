@@ -18,18 +18,18 @@ const Stack = createNativeStackNavigator();
 const Route = () => {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName='Home' screenOptions={{ gestureEnabled:true }}>
-        <Stack.Screen name='Home' options={{headerShown:false}} component={Home} />
-        <Stack.Screen name='Users' options={{headerShown:false}} component={Users} />
-        <Stack.Screen name='UsersById' options={{headerShown:false}} component={UsersById} />
-        <Stack.Screen name='Posts' options={{headerShown:false}} component={Posts} />
-        <Stack.Screen name='PostsById' options={{headerShown:false}} component={PostsById} />
-        <Stack.Screen name='Albums' options={{headerShown:false}} component={Albums} />
-        <Stack.Screen name='AlbumsById' options={{headerShown:false}} component={AlbumsById} />
-        <Stack.Screen name='To Do' options={{headerShown:false}} component={ToDos} />
-        <Stack.Screen name='Comment' options={{headerShown:false}} component={CommentList} />
-        <Stack.Screen name='CommentListById' options={{headerShown:false}} component={CommentListById} />
-        </Stack.Navigator>
+      <Stack.Navigator initialRouteName='Home' screenOptions={{ gestureEnabled: true }}>
+        <Stack.Screen name='Home' options={{ headerShown: false }} component={Home} />
+        <Stack.Screen name='Users' options={{ headerShown: false }} component={Users} />
+        <Stack.Screen name='UsersById' options={{ headerShown: false }} component={UsersById} />
+        <Stack.Screen name='Posts' options={{ headerShown: false }} component={Posts} />
+        <Stack.Screen name='PostsById' options={{ headerShown: false }} component={PostsById} />
+        <Stack.Screen name='Albums' options={{ headerShown: false }} component={Albums} />
+        <Stack.Screen name='AlbumsById' options={{ headerShown: false }} component={AlbumsById} />
+        <Stack.Screen name='To Do' options={{ headerShown: false }} component={ToDos} />
+        <Stack.Screen name='Comment' options={{ headerShown: false }} component={CommentList} />
+        <Stack.Screen name='CommentListById' options={{ headerShown: false }} component={CommentListById} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }

@@ -1,8 +1,9 @@
-import { StyleSheet, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Card, Text } from "@rneui/themed";
+import axios from 'axios';
 
 const PostsById = ({ navigation, route }) => {
 
@@ -16,11 +17,17 @@ const PostsById = ({ navigation, route }) => {
     }
 
     const fetchPostsById = async () => {
-        const resp = await fetch(api);
-        const postsDetail = await resp.json();
-        setPostsDetail(postsDetail);
-        setLoading(false);
-        console.log(postsDetail);
+
+        try {
+            const response = await axios.get(api);
+
+            setPostsDetail(response.data);
+            setLoading(false);
+        }
+        catch (e) {
+            console.log(e);
+        }
+
     };
 
     useEffect(() => {
@@ -30,36 +37,45 @@ const PostsById = ({ navigation, route }) => {
 
     return (
         <SafeAreaView>
+
             <TouchableOpacity onPress={ClosePage}>
                 <View style={styles.back}>
                     <Icon name="chevron-back-outline" size={35}></Icon>
                 </View>
             </TouchableOpacity>
             <View>
-                <Card containerStyle={{borderRadius:10, backgroundColor: "#00cca3",}}>
+
+
+                <ScrollView>
+
+
                     <View>
-                        {loading ? <ActivityIndicator color={'white'} /> : (
+                        <Card containerStyle={{ borderRadius: 10, backgroundColor: "#00cca3", }}>
                             <View>
+                                {loading ? <ActivityIndicator color={'white'} /> : (
+                                    <View>
 
-                                <Card.Title style={styles.textTitle}>
-                                    {postsDetail.title.toUpperCase()}
-                                </Card.Title>
+                                        <Card.Title style={styles.textTitle}>
+                                            {postsDetail.title.toUpperCase()}
+                                        </Card.Title>
 
 
 
-                                <View style={styles.viewStyle}>
+                                        <View style={styles.viewStyle}>
 
-                                    <Text style={styles.textStyle}>{postsDetail.body}</Text>
-                                    
-                                </View>
+                                            <Text style={styles.textStyle}>{postsDetail.body}</Text>
 
+                                        </View>
+
+                                    </View>
+                                )}
                             </View>
-                        )}
+                        </Card>
+
+
+
                     </View>
-                </Card>
-
-
-
+                </ScrollView>
             </View>
         </SafeAreaView>
 

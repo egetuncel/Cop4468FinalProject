@@ -13,10 +13,16 @@ const Posts = ({ navigation }) => {
     const limit = `?_limit=20`;
 
     const fetchPosts = async () => {
-        const resp = await fetch(api + limit);
-        const postsData = await resp.json();
-        setPostsData(postsData);
-        setLoading(false);
+        try {
+            const response = await axios.get(api + limit);
+          
+            setPostsData(response.data);
+            setLoading(false);
+        }
+        catch (e) {
+            console.log(e);
+        }
+        
 
     };
 

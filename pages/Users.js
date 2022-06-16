@@ -26,11 +26,16 @@ const Users = ({ navigation }) => {
 
   const fetchUsers = async () => {
 
-    const resp = await fetch(api);
-    const usersData = await resp.json();
-    setUsersData(usersData);
-    setLoading(false);
-    console.log(usersData)
+    try {
+      const response = await axios.get(api);
+    
+      setUsersData(response.data);
+      setLoading(false);
+  }
+  catch (e) {
+      console.log(e);
+  }
+
   };
 
   const usersInfo = ({ item }) => {

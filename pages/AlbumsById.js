@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ActivityIndicator, FlatList, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -19,7 +19,6 @@ const AlbumsById = ({ navigation, route }) => {
     const fetchAlbumsById = async () => {
         try {
             const response = await axios.get(api);
-            console.log(response.data[0].albumId, "blabla")
             let clickedAlbums = [];
             let i = 0;
             response.data.forEach(element => {
@@ -43,17 +42,10 @@ const AlbumsById = ({ navigation, route }) => {
 
     const photosInfo = ({ item }) => {
         return (
-            <View>
+            <View style={styles.view}>
 
-
-
-                <View style={styles.view2}>
-                    <Image containerStyle={styles.item}
-                        source={{ uri: item.thumbnailUrl }}></Image>
-
-
-                </View>
-
+                <Image containerStyle={styles.item}
+                    source={{ uri: item.thumbnailUrl }}></Image>
 
 
             </View>
@@ -63,40 +55,43 @@ const AlbumsById = ({ navigation, route }) => {
 
     return (
         <SafeAreaView>
+
             <TouchableOpacity onPress={ClosePage}>
                 <View style={styles.back}>
                     <Icon name="chevron-back-outline" size={35}></Icon>
                 </View>
             </TouchableOpacity>
-            <View style={styles.container}>
-                <Card containerStyle={{ borderRadius: 10, backgroundColor: "#00cca3" }}>
-                    <View>
-                        {loading ? <ActivityIndicator color={'white'} /> : (
-                            <View>
+            <ScrollView>
+                <View style={styles.container}>
+                    <Card containerStyle={{ borderRadius: 10, backgroundColor: "#00cca3" }}>
+                        <View>
+                            {loading ? <ActivityIndicator color={'white'} /> : (
+                                <View>
 
-                                <Card.Title style={styles.textTitle}>
+                                    <Card.Title style={styles.textTitle}>
 
-                                </Card.Title>
-
-
-                                <FlatList
-                                    numColumns={4}
-                                    data={albumsDetail}
-                                    keyExtractor={({ id }, index) => id}
-                                    renderItem={photosInfo}
-
-                                />
-
-                            </View>
+                                    </Card.Title>
 
 
-                        )}
-                    </View>
-                </Card>
+                                    <FlatList
+                                        numColumns={4}
+                                        data={albumsDetail}
+                                        keyExtractor={({ id }, index) => id}
+                                        renderItem={photosInfo}
+
+                                    />
+
+                                </View>
+
+
+                            )}
+                        </View>
+                    </Card>
 
 
 
-            </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
 
     )
@@ -120,25 +115,19 @@ const styles = StyleSheet.create({
     },
 
     view: {
-        borderColor: "#ddd",
-        backgroundColor: "#00cca3",
-        borderWidth: 0.5,
-        borderRadius: 10,
-    },
-
-    view2: {
-
+        padding: 1,
         flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center',
-        justifyContent: 'center',
+        flexDirection: 'row',
         alignItems: 'center',
-    
+        justifyContent: 'center'
+
     },
+
+
     item: {
         width: 50,
         height: 50,
-        
+
     },
 
 })
