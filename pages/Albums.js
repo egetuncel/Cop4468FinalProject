@@ -2,10 +2,7 @@ import React, { useState, useEffect, Component } from 'react';
 import {
 
     ScrollView,
-    StatusBar,
     StyleSheet,
-    Button,
-    useColorScheme,
     TouchableOpacity,
     View,
     FlatList,
@@ -19,17 +16,31 @@ import axios from 'axios';
 const Albums = ({ navigation }) => {
 
     const [albumsData, setAlbumsData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loadingAlbums, setLoadingAlbums] = useState(true);
+    const apiUsers = "https://jsonplaceholder.typicode.com/users/";
+    const apiAlbums = "https://jsonplaceholder.typicode.com/albums/";
 
-    const api = "https://jsonplaceholder.typicode.com/albums";
 
     const fetchAlbums = async () => {
-       
+
         try {
-            const response = await axios.get(api);
-          
-            setAlbumsData(response.data);
-            setLoading(false);
+            const response = await axios.get(apiAlbums);
+            const responseUsers = await axios.get(apiUsers);
+            let newAlbum = [];
+   
+            response.data.forEach(elementAlbum => {
+                responseUsers.data.forEach(elementUsers => {
+                    if (elementAlbum.userId == elementUsers.id) {
+                        elementAlbum['nameSurname'] = elementUsers.name;
+                        newAlbum.push(elementAlbum);
+
+                    }
+                })
+
+            })
+            console.log(newAlbum);
+            setAlbumsData(newAlbum);
+            setLoadingAlbums(false);
         }
         catch (e) {
             console.log(e);
@@ -40,21 +51,22 @@ const Albums = ({ navigation }) => {
 
     useEffect(() => {
         fetchAlbums();
-    });
+    }, []);
 
     const albumsInfo = ({ item }) => {
         return (
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate('AlbumsById', { albumId: item.id })}>
                     <Card containerStyle={styles.view}>
-                    
-                    
-                    <View style={styles.view2}>
-                        <Text style={styles.text}>{item.title.toUpperCase()}</Text>
-                        <Icon name="arrow-forward-outline" style={{color:'white'}} size={22}></Icon>
-                    </View>
+
+
+                        <View>
+                            <Text style={styles.text}>{item.title.toUpperCase()}</Text>
+                            
+                            <Text style={{ textAlign: 'right', color: 'white', marginTop:50 }}>Created By {item.nameSurname.toUpperCase()}</Text>
+                        </View>
                     </Card>
-                   
+
 
                 </TouchableOpacity>
 
@@ -71,14 +83,14 @@ const Albums = ({ navigation }) => {
                     <Card containerStyle={{ borderRadius: 10 }}>
                         <Card.Title>ALBUMS</Card.Title>
                         <Card.Divider />
-                        {loading ? <ActivityIndicator color={'white'} /> : (
-                        <FlatList
-                            data={albumsData}
-                            keyExtractor={({ id }, index) => id}
-                            renderItem={albumsInfo}
+                        {loadingAlbums ? <ActivityIndicator color={'white'} /> : (
+                            <FlatList
+                                data={albumsData}
+                                keyExtractor={({ id }, index) => id}
+                                renderItem={albumsInfo}
 
-                        />
-                    )}
+                            />
+                        )}
                     </Card>
                 </View>
 

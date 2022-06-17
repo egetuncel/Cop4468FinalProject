@@ -9,9 +9,8 @@ import UsersById from '../pages/UsersById';
 import PostsById from '../pages/PostsById';
 import Albums from '../pages/Albums';
 import AlbumsById from '../pages/AlbumsById';
-import CommentList from '../pages/CommentList';
 import ToDos from '../pages/ToDos';
-import CommentListById from '../pages/CommentListById';
+
 const Stack = createNativeStackNavigator();
 
 
@@ -26,9 +25,7 @@ const Route = () => {
         <Stack.Screen name='PostsById' options={{ headerShown: false }} component={PostsById} />
         <Stack.Screen name='Albums' options={{ headerShown: false }} component={Albums} />
         <Stack.Screen name='AlbumsById' options={{ headerShown: false }} component={AlbumsById} />
-        <Stack.Screen name='To Do' options={{ headerShown: false }} component={ToDos} />
-        <Stack.Screen name='Comment' options={{ headerShown: false }} component={CommentList} />
-        <Stack.Screen name='CommentListById' options={{ headerShown: false }} component={CommentListById} />
+        <Stack.Screen name='ToDos' options={{ headerShown: false }} component={ToDos} />
       </Stack.Navigator>
     </NavigationContainer>
   )

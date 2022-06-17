@@ -22,12 +22,12 @@ const Users = ({ navigation }) => {
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const api = `https://jsonplaceholder.typicode.com/users`;
+  const apiUsers = `https://jsonplaceholder.typicode.com/users`;
 
   const fetchUsers = async () => {
 
     try {
-      const response = await axios.get(api);
+      const response = await axios.get(apiUsers);
     
       setUsersData(response.data);
       setLoading(false);
@@ -41,7 +41,7 @@ const Users = ({ navigation }) => {
   const usersInfo = ({ item }) => {
     return (
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate('UsersById', { userId: item.id })}>
+        <TouchableOpacity onPress={() => navigation.navigate('ToDos', { userId: item.id })}>
           <Card containerStyle={styles.view}>
             <View style={styles.view2}>
               <Text style={styles.text}>{item.name.toUpperCase()}</Text>

@@ -11,7 +11,7 @@ const AlbumsById = ({ navigation, route }) => {
     const { albumId } = route.params;
     const [albumsDetail, setAlbumsDetail] = useState([]);
     const [loading, setLoading] = useState(true);
-    const api = "https://jsonplaceholder.typicode.com/photos";
+    const api = "https://jsonplaceholder.typicode.com/photos/";
     const ClosePage = () => {
         navigation.goBack();
     }
@@ -19,6 +19,7 @@ const AlbumsById = ({ navigation, route }) => {
     const fetchAlbumsById = async () => {
         try {
             const response = await axios.get(api);
+            console.log(response.data);
             let clickedAlbums = [];
             let i = 0;
             response.data.forEach(element => {
@@ -42,10 +43,18 @@ const AlbumsById = ({ navigation, route }) => {
 
     const photosInfo = ({ item }) => {
         return (
-            <View style={styles.view}>
+            <View>
 
-                <Image containerStyle={styles.item}
-                    source={{ uri: item.thumbnailUrl }}></Image>
+                <Card containerStyle={{ borderRadius: 10 }}>
+                    <Card.Title style={{ textAlign: 'left', fontWeight: 'bold', color: 'black' }}>{item.title.toUpperCase()}</Card.Title>
+                    <Image
+                        source={{ uri: item.url }}
+                        style={{ width: "100%", height: 300 }}
+                        resizeMode="contain">
+
+                    </Image>
+                </Card>
+            <Card.Divider color='white' style={{paddingVertical:15}}></Card.Divider>
 
 
             </View>
@@ -68,13 +77,10 @@ const AlbumsById = ({ navigation, route }) => {
                             {loading ? <ActivityIndicator color={'white'} /> : (
                                 <View>
 
-                                    <Card.Title style={styles.textTitle}>
-
-                                    </Card.Title>
-
-
+                                    <Card.Title style={{ color: 'white' }}>PHOTOS</Card.Title>
+                                    <Card.Divider color='white'></Card.Divider>
                                     <FlatList
-                                        numColumns={4}
+
                                         data={albumsDetail}
                                         keyExtractor={({ id }, index) => id}
                                         renderItem={photosInfo}
@@ -120,13 +126,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
-
-    },
-
-
-    item: {
-        width: 50,
-        height: 50,
 
     },
 

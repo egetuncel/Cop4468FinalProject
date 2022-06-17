@@ -9,20 +9,20 @@ const Posts = ({ navigation }) => {
 
     const [postsData, setPostsData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const api = `https://jsonplaceholder.typicode.com/posts`;
-    const limit = `?_limit=20`;
+    const apiPosts = "https://jsonplaceholder.typicode.com/posts/";
+    const apiLimit = "?_limit=20";
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get(api + limit);
-          
+            const response = await axios.get(apiPosts + apiLimit);
+
             setPostsData(response.data);
             setLoading(false);
         }
         catch (e) {
             console.log(e);
         }
-        
+
 
     };
 
@@ -35,14 +35,16 @@ const Posts = ({ navigation }) => {
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate('PostsById', { postsId: item.id })}>
                     <Card containerStyle={styles.view}>
-                    
-                    
-                    <View style={styles.view2}>
-                        <Text style={styles.text}>{item.title.toUpperCase()}</Text>
-                        <Icon name="arrow-forward-outline" style={{color:'white'}} size={22}></Icon>
-                    </View>
+
+                        <View>
+                            <Card.Title style={{ textAlign: 'left', color: 'white', fontWeight: 'bold' }}>{item.title.toUpperCase()}</Card.Title>
+                            <Card.Divider color='white'></Card.Divider>
+                            <Text style={{ color: 'white' }}>{item.body}</Text>
+                        </View>
+
+
+
                     </Card>
-                   
 
                 </TouchableOpacity>
 
@@ -56,19 +58,19 @@ const Posts = ({ navigation }) => {
 
 
                 <View style={styles.container}>
-                    <Card containerStyle={{borderRadius:10}}>
-                    <Card.Title>POSTS</Card.Title>
-                    <Card.Divider />
-                    {loading ? <ActivityIndicator color={'white'} /> : (
-                        <FlatList
-                            data={postsData}
-                            keyExtractor={({ id }, index) => id}
-                            renderItem={postsInfo}
+                    <Card containerStyle={{ borderRadius: 10 }}>
+                        <Card.Title>POSTS</Card.Title>
+                        <Card.Divider />
+                        {loading ? <ActivityIndicator color={'white'} /> : (
+                            <FlatList
+                                data={postsData}
+                                keyExtractor={({ id }, index) => id}
+                                renderItem={postsInfo}
 
-                        />
-                    )}
+                            />
+                        )}
                     </Card>
-                    
+
 
                 </View>
             </ScrollView>
@@ -103,11 +105,7 @@ const styles = StyleSheet.create({
         overflow: "hidden"
     },
 
-    view2: {
-        flexDirection: "row",
-        position: 'relative',
-        alignItems:'center'
-    },
 
-    
+
+
 })
